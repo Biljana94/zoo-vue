@@ -79,6 +79,27 @@
 
 
 
+
+        <!--TABELA SEKTORA-->
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Sector Name</th>
+                    <th scope="col">List of animals</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="(sector, index) in sectors" :key="index"> <!--pomocu for petlje prolazimo kroz niz i ispisujemo u tabeli zivotinje-->
+                    <td>{{sector.name}}</td>
+                    <td>
+                        <!--kad kliknemo na dugme da iskoci alert sa svim zivotinjama iz tog sektora-->
+                        <button type="submit" @click="seeAllAnimals(sector)">All animals in sector</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+
     </div>
     
 </template>
@@ -137,6 +158,22 @@ export default {
         addAnimal() {
             this.animals.push(this.newAnimal);
             this.newAnimal = {};
+        },
+        
+        //sve zivotinje u datom sektoru
+        seeAllAnimals(sector) {
+            let listOfAnimals = []; //prazan niz u koji ubacujemo zivotinje iz odredjenog sektora
+
+            //iterirali smo kroz niz animals
+            this.animals.forEach(animal => {
+                //uporedjivali smo sektor date zivotinje sa sektorom iz tabele sektor
+                if(animal.sector.name === sector.name) {
+                    //i ako se sektori poklapaju dodajemo ime zivotinje u novi niz
+                    return listOfAnimals.push(animal.name);
+                }
+            });
+
+            alert(listOfAnimals); //iskace nam alert prozor kad kliknemo na dugme sa listom zivotinja u tom sektoru
         }
     }
     
