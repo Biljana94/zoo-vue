@@ -24,6 +24,15 @@
                     <input v-model="newAnimal.dateOfBirth" class="form-control" type="text" placeholder="Enter date of birth">
                 </div>
 
+                <div class="form-group row">
+                    <label>Sectors</label>
+                    <select v-model="newAnimal.sector" class="form-control">
+                        <option v-for="(sector, index) in sectors" :key="index" v-bind:value="sector">
+                            {{ sector.name }}
+                        </option>
+                    </select>
+                </div>
+
                 <button type="submit" class="btn btn-primary">Add new animal</button>
             </form>
         </div>
@@ -39,8 +48,10 @@
                     <th scope="col">Species</th>
                     <th scope="col">Name</th>
                     <th scope="col">Date of Birth</th>
+                    <th scope="col">Sector</th>
                     <th scope="col">Remove Animal</th>
                     <th scope="col">Move to top</th>
+                    
                 </tr>
             </thead>
             <tbody>
@@ -50,6 +61,8 @@
 
                     <!--Ako zivotinja nema datum rodjenja napisati da je datum nepoznat-->
                     <td>{{animal.dateOfBirth ? animal.dateOfBirth : 'Unknown'}}</td>
+
+                    <td>{{animal.sector.name}}</td>
 
                     <td>
                         <!--na klik dugmeta se pokrece akcija removeAnimal(animal), koja brise zivotinju, ta metoda se nalazi u export default-->
@@ -63,12 +76,22 @@
                 </tr>
             </tbody>
         </table>
+
+
+
     </div>
     
 </template>
 
 
 <script>
+
+//sektori za zivotinje
+const sectors = [
+    {name:'Water-animals', surface:'Water'},
+    {name:'Fawl', surface:'Kages'},
+    {name:'Predators', surface:'Kages'}
+];
 
 export default {
     //data fnc vraca neki objekat
@@ -83,13 +106,16 @@ export default {
 
             //niz animals koji sadrzi objekte
             animals: [
-                {species: 'pas', name: 'Maza', dateOfBirth: '22.10.2017'},
-                {species: 'macka', name: 'Mitar', dateOfBirth: '15.9.2018'},
-                {species: 'slon', name: 'Dambo', dateOfBirth: '5.3.2017'},
-                {species: 'riba', name: 'Nemo', dateOfBirth: '11.11.2011'},
-                {species: 'zaba', name: 'Sima', dateOfBirth: '1.2.2001'},
-                {species: 'zmija', name: 'Sladja', dateOfBirth: ''}
-            ]
+                {species: 'pas', name: 'Maza', dateOfBirth: '22.10.2017', sector:sectors[2]},
+                {species: 'macka', name: 'Mitar', dateOfBirth: '15.9.2018', sector:sectors[2]},
+                {species: 'slon', name: 'Dambo', dateOfBirth: '5.3.2017', sector:sectors[1]},
+                {species: 'riba', name: 'Nemo', dateOfBirth: '11.11.2011', sector:sectors[0]},
+                {species: 'zaba', name: 'Sima', dateOfBirth: '1.2.2001', sector:sectors[0]},
+                {species: 'zmija', name: 'Sladja', dateOfBirth: '', sector:sectors[2]}
+            ],
+
+            //sektori zivotinja
+            sectors:sectors, //moramo ispisati da je sektor:sektor jer nam je sektor iznad export data
         }
     },
 
