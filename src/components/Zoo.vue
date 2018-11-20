@@ -8,6 +8,7 @@
                     <th scope="col">Species</th>
                     <th scope="col">Name</th>
                     <th scope="col">Date of Birth</th>
+                    <th scope="col">Remove Animal</th>
                 </tr>
             </thead>
             <tbody>
@@ -15,7 +16,11 @@
                     <td>{{animal.species}}</td>
                     <td>{{animal.name}}</td>
                     <!--Ako zivotinja nema datum rodjenja napisati da je datum nepoznat-->
-                    <td>{{animal.dateOfBirth == '' ? 'Unknown' : animal.dateOfBirth}}</td>
+                    <td>{{animal.dateOfBirth ? animal.dateOfBirth : 'Unknown'}}</td>
+                    <td>
+                        <!--na klik dugmeta se pokrece akcija removeAnimal(animal), koja brise zivotinju, ta metoda se nalazi u export default-->
+                        <button @click="removeAnimal(animal)">Remove</button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -41,6 +46,15 @@ export default {
             ]
         }
     },
+
+    //funkcije
+    methods: {
+        //obrisi zivotinju, fnc
+        removeAnimal(animal) {
+            let index = this.animals.indexOf(animal); //u let index stavljamo index svake zivotinje
+            this.animals.splice(index, 1); //splice - brisemo sa index pozicije 1 element;
+        }
+    }
     
 }
 </script>
