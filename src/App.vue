@@ -1,17 +1,16 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Zoo /> <!--dodajemo komponentu Zoo.vue-->
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Zoo from './components/Zoo.vue' //importujemo komponentu
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
+    Zoo //dodajemo komponentu u listu komponenata
   }
 }
 </script>
