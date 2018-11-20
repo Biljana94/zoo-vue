@@ -2,6 +2,37 @@
 
     <div class="container">
         <h2>Animals</h2>
+
+        <!--FORMA ZA UNOS ZIVOTINJA-->
+        <div class="row justify-content-md-center">
+            <!--@submit.prevent="addAnimal" - metoda koja nam dodaje zivotinju-->
+            <form @submit.prevent="addAnimal">
+                <p class="text-muted">Animal Form</p>
+
+                <div class="form-group row">
+                    <label>Specie</label>
+                    <input v-model="newAnimal.species" class="form-control" type="text" placeholder="Enter specie">
+                </div>
+
+                <div class="form-group row">
+                    <label>Animal Name</label>
+                    <input v-model="newAnimal.name" class="form-control" type="text" placeholder="Enter name">
+                </div>
+
+                <div class="form-group row">
+                    <label>Date of Birth</label>
+                    <input v-model="newAnimal.dateOfBirth" class="form-control" type="text" placeholder="Enter date of birth">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Add new animal</button>
+            </form>
+        </div>
+
+
+
+
+
+        <!--TABELA SA ZIVOTINJAMA-->
         <table class="table">
             <thead>
                 <tr>
@@ -27,7 +58,7 @@
 
                     <td>
                         <!--Datu zivotinju da mozemo na klik dugmeta da pomerimo na vrh liste-->
-                        <button @click="moveToTop(animal)">Move to top</button>
+                        <button type="submit" @click="moveToTop(animal)">Move to top</button>
                     </td>
                 </tr>
             </tbody>
@@ -43,6 +74,13 @@ export default {
     //data fnc vraca neki objekat
     data() {
         return {
+            //nova zivotinja
+            newAnimal: {
+                species: '',
+                name: '',
+                dateOfBirth: ''
+            },
+
             //niz animals koji sadrzi objekte
             animals: [
                 {species: 'pas', name: 'Maza', dateOfBirth: '22.10.2017'},
@@ -67,6 +105,12 @@ export default {
         moveToTop(animal) {
             this.removeAnimal(animal); //iskoristili smo metodu removeAnimal() koja nam sklanja neku zivotinju, a posto nam je ne brise bez fnc splice() onda smo je pomerili u sledecoj liniji na pocetak niza
             this.animals.unshift(animal);//i nad nizom zivotinja smo pozvali fnc unshift() koja nam pomera zivotinju na prvo mesto u listi
+        },
+
+        //dodavanje zivotinje
+        addAnimal() {
+            this.animals.push(this.newAnimal);
+            this.newAnimal = {};
         }
     }
     
